@@ -26,6 +26,8 @@ async def create_user(user: schemas.UserBase):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="PIS Is Not Valid")
 
     try:
+
+        user.cpf = utils.Validator.only_number(user.cpf)
         user.hash_password()
         user_return = user_collection.insert_one(user.dict())
 
@@ -107,6 +109,7 @@ async def update_user_by_id(id: str, user: schemas.UserUpdate, user_data: any = 
     if not utils.ValidatePIS(pis=user.pis).validate():
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="PIS Is Not Valid")
 
+    user.cpf = utils.Validator.only_number(user.cpf)
     user.hash_password()
     user_resp = user_collection.find_one_and_update(
         {'_id': ObjectId(id)},
@@ -136,6 +139,7 @@ async def update_my_user(user: schemas.UserUpdate, user_data: any = Depends(oaut
     if not utils.ValidatePIS(pis=user.pis).validate():
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="PIS Is Not Valid")
 
+    user.cpf = utils.Validator.only_number(user.cpf)
     user.hash_password()
     user_resp = user_collection.find_one_and_update(
         {'_id': ObjectId(user_data['_id'])},

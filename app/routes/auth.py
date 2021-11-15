@@ -22,7 +22,7 @@ async def login(user_credentials: schemas.UserLogin):
     if not user_credentials.cpf:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Invalid CPF')
 
-    user = user_collection.find_one({"cpf": user_credentials.cpf})
+    user = user_collection.find_one({"cpf": utils.Validator.only_number(user_credentials.cpf)})
 
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User Not Found")
