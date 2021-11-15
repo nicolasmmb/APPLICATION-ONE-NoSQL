@@ -1,0 +1,41 @@
+# RUN docker-compose up --build -d
+
+version: "2.8"
+
+services:
+  apponenosql:
+    build: .
+    depends_on:
+      - mongodb
+    ports:
+      - 3001:8001
+    command:
+      - "uvicorn"
+      - "main:app"
+      - "--host"
+      - "0.0.0.0"
+      - "--port"
+      - "8001"
+
+    environment:
+      # DB
+      - TOKEN_SECRET=663559295b77455ceb6623fb398e8e831ec022e81087515ede29f6ddf3e1f336
+      - MONGO_HOST=mongodb
+      - MONGO_PORT=27017
+      - MONGO_USERNAME=root
+      - MONGO_PASSWORD=root
+      # JWT
+      - SECRET_KEY=7c0d5815b3d6604a7f7f43c80ad83fe25df5f0f850cec1da0e7a22bd2c8705b5
+      - ALGORITHM=HS256
+      - TOKEN_EXPIRE_MINUTES=120
+
+  mongodb:
+    image: mongo
+    # Comment the ports for close access to the database
+    # ports:
+    #   - 27017:27017
+    volumes:
+      - ./db/mongodb:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
