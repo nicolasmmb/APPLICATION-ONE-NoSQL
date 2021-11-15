@@ -5,16 +5,25 @@ load_dotenv()
 
 
 class DatabaseConfig:
-    def __init__(self):
-        self.__type_db = 'mongodb://'
-        self.__username = os.getenv('MONGO_USERNAME')
-        self.__password = os.getenv('MONGO_PASSWORD')
-        self.__host = os.getenv("MONGO_HOST")
-        self.__port = os.getenv("MONGO_PORT")
-        self.__string_db = self.__type_db + self.__username + ':' + self.__password + '@' + self.__host + ':' + self.__port + '/'
+    @staticmethod
+    def get_url_connection() -> str:
+        __type_db = 'mongodb://'
+        __username = os.getenv('MONGO_USERNAME')
+        __password = os.getenv('MONGO_PASSWORD')
+        __host = os.getenv("MONGO_HOST")
+        __port = os.getenv("MONGO_PORT")
+        __string_db = __type_db + __username + ':' + __password + '@' + __host + ':' + __port + '/'
+        return __string_db
 
-    def get_url_connection(self) -> str:
-        return self.__string_db
+    @staticmethod
+    def get_url_connection_srv() -> str:
+        __type_db = 'mongodb+srv://'
+        __username = os.getenv('MONGO_USERNAME')
+        __password = os.getenv('MONGO_PASSWORD')
+        __host = os.getenv("MONGO_HOST")
+        __port = os.getenv("MONGO_PORT")
+        __string_db = __type_db + __username + ':' + __password + '@' + __host + '/'
+        return __string_db
 
 
 class TokenConfig:
