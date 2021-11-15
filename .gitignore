@@ -2,3 +2,5 @@
 **.pyc
 postgres
 db
+.env
+.envs
