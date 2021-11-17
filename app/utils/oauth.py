@@ -31,7 +31,6 @@ def create_token(data: dict):
 
 def decode_token(token: str, exeption):
     try:
-        print('>>> TOKEN: ' + token)
         decode = jwt.decode(
             token,
             TokenConfig.get_token_config()['SECRET_KEY'],

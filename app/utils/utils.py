@@ -96,10 +96,11 @@ class Validator:
 
         return True
 
-
-if __name__ == '__main__':
-    print('PIS: ' + str(Validator.validatePIS('722.5189305-4')))  # TRUE
-    print('CPF: ' + str(Validator.validateCPF('490.027.928-59')))  # TRUE
-
-    print('PIS: ' + str(Validator.validatePIS('722.5189305-9')))  # FALSE
-    print('CPF: ' + str(Validator.validateCPF('490.027.928-58')))  # FALSE
+    @staticmethod
+    def validateEMAIL(email) -> bool:
+        email = email.lower()
+        # ^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$
+        if re.search('^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$', email):
+            return True
+        else:
+            return False

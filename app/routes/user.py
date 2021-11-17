@@ -25,6 +25,9 @@ async def create_user(user: schemas.UserBase):
     if not utils.Validator.validatePIS(pis=user.pis):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="PIS Is Not Valid")
 
+    if not utils.Validator.validateEMAIL(email=user.email):
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email Is Not Valid")
+
     try:
 
         user.cpf = utils.Validator.only_number(user.cpf)
@@ -111,6 +114,9 @@ async def update_user_by_id(id: str, user: schemas.UserUpdate, user_data: any = 
     if not utils.ValidatePIS(pis=user.pis).validate():
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="PIS Is Not Valid")
 
+    if not utils.Validator.validateEMAIL(email=user.email):
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email Is Not Valid")
+
     user.cpf = utils.Validator.only_number(user.cpf)
     user.pis = utils.Validator.only_number(user.pis)
 
@@ -142,6 +148,9 @@ async def update_my_user(user: schemas.UserUpdate, user_data: any = Depends(oaut
 
     if not utils.ValidatePIS(pis=user.pis).validate():
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="PIS Is Not Valid")
+
+    if not utils.Validator.validateEMAIL(email=user.email):
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email Is Not Valid")
 
     user.cpf = utils.Validator.only_number(user.cpf)
     user.pis = utils.Validator.only_number(user.pis)
