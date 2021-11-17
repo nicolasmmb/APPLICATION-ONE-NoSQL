@@ -6,3 +6,6 @@ __conx = MongoClient(DatabaseConfig.get_url_connection_srv())
 __db = __conx.pontotel
 
 user_collection = __db["users"]
+user_collection.create_index("email", unique=True)
+user_collection.create_index("cpf", unique=True)
+user_collection.create_index("pis", unique=True)

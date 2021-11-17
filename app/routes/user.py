@@ -108,10 +108,10 @@ async def update_user_by_id(id: str, user: schemas.UserUpdate, user_data: any = 
     if ObjectId().is_valid(id) != True:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid Id")
 
-    if not utils.ValidateCPF(cpf=user.cpf).validate():
+    if not utils.Validator.validateCPF(cpf=user.cpf):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="CPF Is Not Valid")
 
-    if not utils.ValidatePIS(pis=user.pis).validate():
+    if not utils.Validator.validatePIS(pis=user.pis):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="PIS Is Not Valid")
 
     if not utils.Validator.validateEMAIL(email=user.email):
@@ -143,10 +143,10 @@ async def update_my_user(user: schemas.UserUpdate, user_data: any = Depends(oaut
     if ObjectId().is_valid(user_data['_id']) != True:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid Id")
 
-    if not utils.ValidateCPF(cpf=user.cpf).validate():
+    if not utils.Validator.validateCPF(cpf=user.cpf):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="CPF Is Not Valid")
 
-    if not utils.ValidatePIS(pis=user.pis).validate():
+    if not utils.Validator.validatePIS(pis=user.pis):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="PIS Is Not Valid")
 
     if not utils.Validator.validateEMAIL(email=user.email):
