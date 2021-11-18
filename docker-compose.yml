@@ -24,6 +24,7 @@ services:
       - MONGO_PORT=27017
       - MONGO_USERNAME=root
       - MONGO_PASSWORD=root
+      - MONGO_USE_SRV=False
       # JWT
       - SECRET_KEY=7c0d5815b3d6604a7f7f43c80ad83fe25df5f0f850cec1da0e7a22bd2c8705b5
       - ALGORITHM=HS256
